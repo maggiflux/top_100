@@ -1,0 +1,32 @@
+DESAFIO - TOP 100
+
+
+posts=# CREATE DATABASE peliculas;
+
+posts=# \c peliculas
+
+peliculas=# CREATE TABLE peliculas (id SERIAL, 
+pelicula VARCHAR(50), 
+Año_estreno VARCHAR(10), 
+Director VARCHAR(50),  
+PRIMARY KEY(id))
+
+peliculas=# CREATE TABLE reparto (id SERIAL,
+name VARCHAR(50),
+FOREIGN KEY (id) REFERENCES peliculas(id));
+
+peliculas=# \copy peliculas FROM '/Users/ivanalejandro/Desktop/desafio_top100/peliculas.csv' csv header;
+
+peliculas=# \copy reparto FROM '/Users/ivanalejandro/Desktop/desafio_top100/reparto.csv' csv header;
+
+peliculas=# SELECT * FROM peliculas FULL OUTER JOIN reparto on peliculas.id=reparto.id WHERE pelicula='Titanic';
+
+peliculas=# SELECT * FROM peliculas FULL OUTER JOIN reparto on peliculas.id=reparto.id WHERE name='Harrison Ford';
+
+peliculas=# SELECT DISTINCT (name) FROM reparto;
+
+peliculas=# SELECT pelicula, año_estreno FROM peliculas WHERE año_estreno >= 1990 AND año_estreno<= 1999 ORDER BY pelicula ASC;
+
+peliculas=# SELECT *  FROM peliculas INNER JOIN reparto ON peliculas.id=reparto.id WHERE año_estreno=2001;
+
+peliculas=# SELECT *  FROM peliculas INNER JOIN reparto ON peliculas.id=reparto.id WHERE año_estreno=2008;
